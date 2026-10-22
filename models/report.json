@@ -1,0 +1,159 @@
+{
+  "trained_at": "2026-10-21T18:12:11.679424+00:00",
+  "data_mode": "synthetic",
+  "split": {
+    "train": "2015-01-01 → 2022-12-31",
+    "calibration": "2023-01-01 → 2023-12-31",
+    "test": "2024-01-01 → 2026-10-18",
+    "rows": {
+      "train": 22406,
+      "calibration": 2799,
+      "test": 7844
+    }
+  },
+  "n_trees": 198,
+  "test": {
+    "model": {
+      "roc_auc": 0.9439,
+      "pr_auc": 0.3467,
+      "brier": 0.01868,
+      "log_loss": 0.0697,
+      "base_rate": 0.0243,
+      "precision@0.2": 0.369,
+      "recall@0.2": 0.471,
+      "f1@0.2": 0.414,
+      "precision@0.5": 0.5,
+      "recall@0.5": 0.11,
+      "f1@0.5": 0.18
+    },
+    "logistic_baseline": {
+      "roc_auc": 0.9285,
+      "pr_auc": 0.3317,
+      "brier": 0.01933,
+      "log_loss": 0.0749,
+      "base_rate": 0.0243,
+      "precision@0.2": 0.378,
+      "recall@0.2": 0.398,
+      "f1@0.2": 0.388,
+      "precision@0.5": 0.571,
+      "recall@0.5": 0.168,
+      "f1@0.5": 0.259
+    },
+    "season_baseline": {
+      "roc_auc": 0.7167,
+      "pr_auc": 0.0603,
+      "brier": 0.02337,
+      "log_loss": 0.1142,
+      "base_rate": 0.0243,
+      "precision@0.2": 0.0,
+      "recall@0.2": 0.0,
+      "f1@0.2": 0.0,
+      "precision@0.5": 0.0,
+      "recall@0.5": 0.0,
+      "f1@0.5": 0.0
+    }
+  },
+  "per_segment": {
+    "HZR-BSM": {
+      "n": 1022,
+      "blocked_days": 6,
+      "roc_auc": 0.923,
+      "pr_auc": 0.382
+    },
+    "BSM-DSU": {
+      "n": 1022,
+      "blocked_days": 33,
+      "roc_auc": 0.944,
+      "pr_auc": 0.346
+    },
+    "DSU-CHL": {
+      "n": 1022,
+      "blocked_days": 48,
+      "roc_auc": 0.923,
+      "pr_auc": 0.42
+    },
+    "CHL-JGL": {
+      "n": 1022,
+      "blocked_days": 43,
+      "roc_auc": 0.919,
+      "pr_auc": 0.435
+    },
+    "JGL-GLT": {
+      "n": 1022,
+      "blocked_days": 10,
+      "roc_auc": 0.961,
+      "pr_auc": 0.257
+    },
+    "GLT-HNZ": {
+      "n": 1022,
+      "blocked_days": 9,
+      "roc_auc": 0.983,
+      "pr_auc": 0.345
+    },
+    "HNZ-SST": {
+      "n": 1022,
+      "blocked_days": 27,
+      "roc_auc": 0.945,
+      "pr_auc": 0.336
+    },
+    "SST-KJB": {
+      "n": 690,
+      "blocked_days": 15,
+      "roc_auc": 0.921,
+      "pr_auc": 0.361
+    }
+  },
+  "reliability": [
+    {
+      "bin": "[0.0, 0.05)",
+      "n": 7014,
+      "predicted": 0.008,
+      "observed": 0.005
+    },
+    {
+      "bin": "[0.05, 0.1)",
+      "n": 347,
+      "predicted": 0.069,
+      "observed": 0.066
+    },
+    {
+      "bin": "[0.1, 0.2)",
+      "n": 239,
+      "predicted": 0.14,
+      "observed": 0.172
+    },
+    {
+      "bin": "[0.2, 0.35)",
+      "n": 142,
+      "predicted": 0.268,
+      "observed": 0.31
+    },
+    {
+      "bin": "[0.35, 0.5)",
+      "n": 60,
+      "predicted": 0.414,
+      "observed": 0.417
+    },
+    {
+      "bin": "[0.5, 0.7)",
+      "n": 35,
+      "predicted": 0.577,
+      "observed": 0.514
+    },
+    {
+      "bin": "[0.7, 1.0)",
+      "n": 7,
+      "predicted": 0.762,
+      "observed": 0.429
+    }
+  ],
+  "group_importance": {
+    "Rain in the last days": 1.611,
+    "Tomorrow's rain/snow forecast": 1.478,
+    "News & traveller reports": 1.061,
+    "Heat / glacier melt": 0.55,
+    "Snow & freeze-thaw": 0.381,
+    "Season": 0.275,
+    "Landslide history": 0.022
+  }
+}

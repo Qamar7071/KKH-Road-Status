@@ -1,0 +1,186 @@
+<title>KKH Road Status Predictor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Will the Karakoram Highway be open tomorrow? Segment-by-segment blockage forecast from weather, landslide history and road reports.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500&display=swap">
+<!--STYLE-->
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="KKH Road Status, top of page">
+      <img src="static/logo.webp" alt="" class="brand-mark" width="40" height="40">
+      <span><b>KKH Road Status</b><small lang="ur" dir="rtl">شاہراہ قراقرم</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#segments">Segments</a><a href="#trip">Trip</a><a href="#machine">Time machine</a><a href="#model">Accuracy</a>
+    </nav>
+    <div class="nav-right">
+      <span class="status" id="status" role="status"><span class="dot"></span><span id="status-text">Loading</span></span>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch light or dark theme"></button>
+    </div>
+  </div>
+</header>
+<div class="ticker" id="ticker" aria-label="Status updates"><div class="ticker-track" id="ticker-track"></div></div>
+
+<main class="page" id="top">
+  <section class="hero-scene">
+    <div class="hero-backdrop" aria-hidden="true"></div>
+    <div class="hero-card">
+      <p class="when" id="when">&nbsp;</p>
+      <h1 id="headline">Checking the road from Havelian to Khunjerab</h1>
+      <p class="lede" id="lede"></p>
+      <section class="health" aria-label="Route health">
+        <div class="health-top">
+          <div class="health-main">
+            <span class="health-label" id="h-label">Clear run, Havelian to Khunjerab</span>
+            <div class="health-num"><span class="h-num" id="h-num">–</span><span class="h-delta" id="h-delta"></span></div>
+          </div>
+          <figure class="health-spark">
+            <svg id="h-spark" viewBox="0 0 168 56" role="img" aria-label="Clear-run chance over recent evenings"></svg>
+            <figcaption id="h-spark-cap">Last 14 evenings</figcaption>
+          </figure>
+        </div>
+        <div class="strip" id="h-strip" role="group" aria-label="Risk along the road, scaled by length"></div>
+        <div class="strip-ends"><span>Havelian</span><span id="h-km">805 km</span><span>Khunjerab</span></div>
+        <div class="health-foot">
+          <div class="h-counts" id="h-counts"></div>
+          <button type="button" class="h-worst" id="h-worst"></button>
+        </div>
+      </section>
+      <p class="notice" id="notice" hidden></p>
+    </div>
+    <figure class="hero-photo" id="hero-photo">
+      <div class="kb">
+        <img src="static/hero.webp" alt="The Karakoram Highway below the Passu Cones in Upper Hunza" width="750" height="880" fetchpriority="high">
+        <div class="veil" aria-hidden="true"></div>
+        <canvas id="fx" aria-hidden="true"></canvas>
+      </div>
+      <div class="photo-top">
+        <figcaption><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Passu Cones, Upper Hunza · KKH km 695</figcaption>
+        <p class="scene-tag" id="scene-tag"></p>
+      </div>
+    </figure>
+  </section>
+
+  <section class="panel map-panel">
+    <div class="block-head row">
+      <div><h2>Risk map</h2><p>The KKH from Islamabad's doorstep to the Chinese border. Tap a ring or a stretch of road.</p></div>
+    </div>
+    <div class="map-wrap">
+    <div class="map-card">
+      <svg id="map" role="img" aria-label="Map of the Karakoram Highway coloured by tomorrow's risk"></svg>
+      <div class="map-tools">
+        <button type="button" class="icon-btn" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" class="icon-btn" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" class="icon-btn" id="zoom-reset" aria-label="Reset map"></button>
+      </div>
+      <div class="map-legend" id="legend"></div>
+      <p class="map-credit" id="map-credit"></p>
+    </div>
+    <aside class="board" aria-label="Road board">
+      <div class="board-head"><span>Stretch</span><span>Risk</span></div>
+      <div class="board-rows" id="board"></div>
+      <p class="board-foot" id="board-foot"></p>
+    </aside>
+    </div>
+  </section>
+
+  <section id="segments" class="block">
+    <div class="block-head">
+      <h2>Segment by segment</h2>
+      <p>805 km in eight stretches, Havelian to the Pakistan–China border. Pick one to see why.</p>
+    </div>
+    <div class="seg-rail" id="seg-rail" role="listbox" aria-label="Highway segments"></div>
+  </section>
+
+  <section class="detail-grid">
+    <article class="panel detail" id="detail" aria-live="polite"></article>
+    <aside class="panel whatif" id="whatif"></aside>
+  </section>
+
+  <section class="panel block-pad">
+    <div class="block-head row">
+      <div><h2>Road profile</h2><p>Elevation along the KKH, coloured by tomorrow's risk.</p></div>
+    </div>
+    <div class="profile-scroll"><svg id="profile" viewBox="0 0 1000 260" role="img" aria-label="Elevation profile of the Karakoram Highway"></svg></div>
+  </section>
+
+  <section class="duo">
+    <div class="panel block-pad" id="trip">
+      <h2>Plan a trip</h2>
+      <p class="help">We combine the risk of every stretch between your start and end.</p>
+      <div class="trip-row">
+        <label for="trip-from"><span>From</span><select id="trip-from"></select></label>
+        <button type="button" class="icon-btn swap" id="trip-swap" aria-label="Swap start and end"></button>
+        <label for="trip-to"><span>To</span><select id="trip-to"></select></label>
+      </div>
+      <div class="trip-out" id="trip-out"></div>
+    </div>
+    <div class="panel block-pad" id="machine">
+      <h2>Time machine</h2>
+      <p class="help">Go back to any evening and compare the forecast with what really happened.</p>
+      <div class="machine-row">
+        <label for="replay-date" id="replay-date-label"><span>Evening of</span><input type="date" id="replay-date"></label>
+        <button type="button" id="replay-go" class="btn">Show forecast</button>
+        <button type="button" id="replay-live" class="btn ghost" hidden>Back to today</button>
+      </div>
+      <p class="sub-label">Big storm days</p>
+      <div class="chips" id="scenarios"></div>
+    </div>
+  </section>
+
+  <section class="panel block-pad" id="reports-section">
+    <div class="block-head">
+      <h2>Road reports</h2>
+      <p>On the KKH right now? Your report goes straight into tomorrow's forecast.</p>
+    </div>
+    <div class="reports-grid">
+      <form id="report-form" class="report-form" novalidate>
+        <label for="rep-seg"><span>Segment</span><select id="rep-seg" required></select></label>
+        <fieldset class="seg-toggle">
+          <legend>Road is</legend>
+          <input type="radio" name="status" value="blocked" id="rep-blocked" checked><label for="rep-blocked">Blocked</label>
+          <input type="radio" name="status" value="partial" id="rep-partial"><label for="rep-partial">One-way</label>
+          <input type="radio" name="status" value="open" id="rep-open"><label for="rep-open">Open</label>
+        </fieldset>
+        <label for="rep-place"><span>Place <em>optional</em></span><input id="rep-place" maxlength="80" placeholder="Tatta Pani"></label>
+        <label for="rep-note"><span>Note <em>optional</em></span><input id="rep-note" maxlength="280" placeholder="Rockslide, NHA machinery on site"></label>
+        <button class="btn" type="submit" id="rep-submit">Send report</button>
+        <p class="form-msg" id="rep-msg" role="status"></p>
+      </form>
+      <ul class="report-list" id="report-list"></ul>
+    </div>
+  </section>
+
+  <section class="panel block-pad" id="model">
+    <div class="block-head">
+      <h2>How good is the forecast?</h2>
+      <p id="model-intro"></p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="model-grid">
+      <div>
+        <h3>Compared with simpler methods</h3>
+        <div class="table-wrap"><table class="metrics" id="metrics"></table></div>
+        <p class="data-note" id="data-note"></p>
+        <div class="audit" id="audit"></div>
+      </div>
+      <div>
+        <h3>When it says 30%, is it 30%?</h3>
+        <svg id="calib" viewBox="0 0 340 270" role="img" aria-label="Calibration chart"></svg>
+      </div>
+      <div>
+        <h3>What moves the forecast most</h3>
+        <ul class="drivers-global" id="drivers-global"></ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand"><img src="static/logo.webp" alt="Karakoram logo" width="56" height="56"><div><b>KKH Road Status</b><span>Karakoram Highway blockage forecast, Havelian to Khunjerab</span></div></div>
+    <p>Weather: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>. Landslides: <a href="https://data.nasa.gov/" target="_blank" rel="noopener">NASA Global Landslide Catalog</a> and press reports. Map: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a>. Forecasts are probabilities, not road orders. Check with NHA (helpline 130) or local police before you travel.</p>
+    <p id="foot-meta"></p>
+  </footer>
+</main>
+<!--SCRIPT-->

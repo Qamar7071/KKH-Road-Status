@@ -1,0 +1,31 @@
+name: Retrain on real data
+
+# Monthly: pull fresh Open-Meteo history, NASA landslides and news, retrain, test, and
+# open a pull request with the new model so a human reviews the metrics before it ships.
+on:
+  schedule:
+    - cron: "17 2 1 * *"
+  workflow_dispatch:
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: python -m kkh.dataset --mode real
+      - run: python -m kkh.model | tee models/train_log.txt
+      - run: python -m pytest -q
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          branch: retrain/${{ github.run_id }}
+          title: "Retrained model on real data"
+          body-path: models/train_log.txt
+          commit-message: "Retrain model on real data"

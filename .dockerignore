@@ -1,0 +1,10 @@
+.git
+.github
+__pycache__/
+*.pyc
+tests/
+dist/
+docs/
+data/app.db
+data/raw/news_archive.jsonl
+.pytest_cache/

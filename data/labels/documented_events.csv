@@ -1,0 +1,11 @@
+date_start,date_end,segment_ids,status,cause,places,source_url
+2023-07-30,2023-07-30,CHL-JGL,blocked,flash_flood_landslide,Lal Pari; Gandlu; Tattapani,https://www.dawn.com/news/1767582/thousands-stranded-as-flash-floods-block-karakoram-highway-skardu-road
+2024-02-21,2024-02-22,BSM-DSU;DSU-CHL,blocked,snow_rain_landslide,various points (Kohistan),https://www.dawn.com/news/amp/1816240
+2024-04-29,2024-04-29,DSU-CHL,blocked,rain_landslide,Doga bridge near Barsin,https://propakistani.pk/2024/04/29/karakoram-highway-closed-due-to-landslides-from-heavy-rainfall/amp/
+2025-02-26,2025-02-27,DSU-CHL,blocked,rain_snow_landslide,Lotar; Hodar; Dasu-Diamer,https://asianews.network/pakistans-karakoram-highway-blocked-at-several-points-due-to-landsliding-from-heavy-rains/
+2025-03-11,2025-03-12,DSU-CHL,blocked,rain_rockslide,Lotar (Upper Kohistan),https://www.dawn.com/news/amp/1897390
+2025-08-08,2025-08-11,GLT-HNZ,blocked,glof_flood,Hassanabad (Shishper GLOF),https://www.deccanherald.com/amp/story/world%2Fglacial-fury-in-pok-floods-sever-karakoram-highway-landslide-kills-nine-3675363
+2026-05-12,2026-05-12,BSM-DSU,blocked,flash_flood_landslide,Gloos Banda (Lower Kohistan),https://www.app.com.pk/?p=1208260
+2026-07-14,2026-07-14,CHL-JGL,blocked,flash_flood,Buner Das (Diamer),https://dailytimes.com.pk/1522670/tourists-stranded-as-karakoram-highway-closed-after-flash-floods/
+2026-08-04,2026-08-04,CHL-JGL,blocked,accident,Shing Nala (overturned truck),https://en.dailypakistan.com.pk/04-Aug-2026/travel-alert-babusar-highway-kkh-closed-for-all-vehicles-amid-flooding-at-zero-point
+2026-08-05,2026-08-05,CHL-JGL;HNZ-SST,blocked,flash_flood_glacial_melt,Altashi Nullah (Gini); Juchar Nallah (Gulmit),https://www.dawn.com/news/2020690

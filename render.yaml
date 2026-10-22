@@ -1,0 +1,15 @@
+# One-click deploy on Render (https://render.com): New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: kkh-road-status
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+    dockerfilePath: ./Dockerfile
+    buildFilter:
+      paths: ["kkh/**", "app/**", "models/**", "data/**", "Dockerfile", "requirements.txt"]
+# Note: the free plan has no persistent disk, so community reports reset on redeploy.
+# Add a disk mounted at /app/var (paid plans) to keep them.

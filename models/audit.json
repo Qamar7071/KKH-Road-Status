@@ -1,0 +1,364 @@
+{
+ "data_integrity": {
+  "weather": {
+   "rows": 34480,
+   "duplicates": 0,
+   "gaps": 0,
+   "nans": 0
+  },
+  "labels": {
+   "rows": 34480,
+   "duplicates": 0,
+   "gaps": 0,
+   "nans": 32284
+  },
+  "impossible_values": {
+   "neg_precip": 0,
+   "neg_snow": 0,
+   "tmin_gt_tmax": 0,
+   "precip_gt_300": 0,
+   "snow_gt_precip": 0
+  }
+ },
+ "backtest": [
+  {
+   "year": 2019,
+   "test_rows": 2799,
+   "blocked": 18,
+   "auc": 0.839,
+   "pr_auc": 0.284,
+   "brier": 0.0053,
+   "recall@.2": 0.39,
+   "prec@.2": 0.44
+  },
+  {
+   "year": 2020,
+   "test_rows": 2806,
+   "blocked": 29,
+   "auc": 0.907,
+   "pr_auc": 0.132,
+   "brier": 0.0097,
+   "recall@.2": 0.07,
+   "prec@.2": 0.13
+  },
+  {
+   "year": 2021,
+   "test_rows": 2799,
+   "blocked": 60,
+   "auc": 0.946,
+   "pr_auc": 0.347,
+   "brier": 0.0162,
+   "recall@.2": 0.55,
+   "prec@.2": 0.42
+  },
+  {
+   "year": 2022,
+   "test_rows": 2799,
+   "blocked": 153,
+   "auc": 0.919,
+   "pr_auc": 0.461,
+   "brier": 0.0397,
+   "recall@.2": 0.62,
+   "prec@.2": 0.36
+  },
+  {
+   "year": 2023,
+   "test_rows": 2799,
+   "blocked": 76,
+   "auc": 0.924,
+   "pr_auc": 0.43,
+   "brier": 0.0197,
+   "recall@.2": 0.53,
+   "prec@.2": 0.48
+  },
+  {
+   "year": 2024,
+   "test_rows": 2806,
+   "blocked": 39,
+   "auc": 0.964,
+   "pr_auc": 0.309,
+   "brier": 0.0111,
+   "recall@.2": 0.49,
+   "prec@.2": 0.36
+  },
+  {
+   "year": 2025,
+   "test_rows": 2799,
+   "blocked": 86,
+   "auc": 0.943,
+   "pr_auc": 0.458,
+   "brier": 0.0213,
+   "recall@.2": 0.5,
+   "prec@.2": 0.47
+  },
+  {
+   "year": 2026,
+   "test_rows": 2239,
+   "blocked": 66,
+   "auc": 0.939,
+   "pr_auc": 0.294,
+   "brier": 0.0251,
+   "recall@.2": 0.52,
+   "prec@.2": 0.27
+  }
+ ],
+ "calibration": {
+  "raw_hgb": {
+   "auc": 0.9439,
+   "pr_auc": 0.3467,
+   "brier": 0.01881,
+   "ece": 0.004,
+   "unique_values": 2488
+  },
+  "isotonic": {
+   "auc": 0.9405,
+   "pr_auc": 0.31,
+   "brier": 0.01891,
+   "ece": 0.0059,
+   "unique_values": 64
+  },
+  "sigmoid (in use)": {
+   "auc": 0.9439,
+   "pr_auc": 0.3467,
+   "brier": 0.01868,
+   "ece": 0.0051,
+   "unique_values": 3041
+  }
+ },
+ "optimism": {
+  "perfect_next_day_weather": {
+   "auc": 0.949,
+   "pr_auc": 0.364,
+   "recall@.2": 0.49,
+   "prec@.2": 0.39
+  },
+  "realistic_forecast": {
+   "auc": 0.944,
+   "pr_auc": 0.347,
+   "recall@.2": 0.47,
+   "prec@.2": 0.37
+  }
+ },
+ "monotonicity": {
+  "HZR-BSM": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "BSM-DSU": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "DSU-CHL": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "CHL-JGL": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "JGL-GLT": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "GLT-HNZ": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "HNZ-SST": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  },
+  "SST-KJB": {
+   "f_precip": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "f_snow": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "rain7": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   },
+   "news_block_t": {
+    "violations_pct": 0.0,
+    "worst_drop_pts": 0.0
+   }
+  }
+ },
+ "errors": {
+  "by_segment": {
+   "blocked": {
+    "BSM-DSU": 33,
+    "CHL-JGL": 43,
+    "DSU-CHL": 48,
+    "GLT-HNZ": 9,
+    "HNZ-SST": 27,
+    "HZR-BSM": 6,
+    "JGL-GLT": 10,
+    "SST-KJB": 15
+   },
+   "caught": {
+    "BSM-DSU": 0.61,
+    "CHL-JGL": 0.42,
+    "DSU-CHL": 0.6,
+    "GLT-HNZ": 0.44,
+    "HNZ-SST": 0.52,
+    "HZR-BSM": 0.17,
+    "JGL-GLT": 0.0,
+    "SST-KJB": 0.27
+   }
+  },
+  "by_cause": {
+   "blocked": {
+    "a landslide": 49,
+    "a rockslide": 26,
+    "accident": 3,
+    "flash floods": 29,
+    "glacial flood": 20,
+    "heavy rain": 27,
+    "mudslides": 28,
+    "snowfall": 9
+   },
+   "caught": {
+    "a landslide": 0.35,
+    "a rockslide": 0.54,
+    "accident": 0.0,
+    "flash floods": 0.55,
+    "glacial flood": 0.45,
+    "heavy rain": 0.63,
+    "mudslides": 0.43,
+    "snowfall": 0.56
+   }
+  },
+  "onset": {
+   "n": {
+    "false": 64,
+    "true": 127
+   },
+   "caught": {
+    "false": 0.72,
+    "true": 0.35
+   }
+  },
+  "false_alarms_by_month": {
+   "1": 12,
+   "2": 10,
+   "3": 37,
+   "4": 10,
+   "5": 8,
+   "6": 2,
+   "7": 35,
+   "8": 25,
+   "9": 3,
+   "10": 7,
+   "11": 3,
+   "12": 2
+  }
+ },
+ "skew": {},
+ "edges": {
+  "min_prob": 0.0003,
+  "share_at_floor": 0.0,
+  "distinct_probabilities": 3056
+ }
+}

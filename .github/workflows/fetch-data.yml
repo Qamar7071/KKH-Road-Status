@@ -1,0 +1,49 @@
+name: Fetch real data
+
+# Downloads real weather, landslide, news, map and photo data into data/raw/ and commits it.
+# Fast sources first (one commit), then the slow GDELT news archive (second commit).
+on:
+  push:
+    paths: ["scripts/fetch_real_data.py", ".github/workflows/fetch-data.yml"]
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Comma-separated sources (weather,nasa,osm,terrain,photos,gdelt)"
+        default: "weather,nasa,osm,terrain,photos,gdelt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt pillow
+      - name: Fetch fast sources
+        run: python scripts/fetch_real_data.py --only weather,nasa,osm,terrain,photos
+      - name: Commit fast sources
+        run: |
+          git config user.name "kkh-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/raw
+          git commit -m "data: real weather, landslides, OSM, terrain, photos" || echo "nothing to commit"
+          git pull --rebase && git push
+      - name: Fetch news archive (GDELT, slow)
+        if: ${{ !github.event.inputs.only || contains(github.event.inputs.only, 'gdelt') }}
+        run: python scripts/fetch_real_data.py --only gdelt
+      - name: Commit news archive
+        if: ${{ !github.event.inputs.only || contains(github.event.inputs.only, 'gdelt') }}
+        run: |
+          git add data/raw
+          git commit -m "data: GDELT KKH news archive" || echo "nothing to commit"
+          git pull --rebase && git push

@@ -1,0 +1,104 @@
+
+======== 1. Data integrity ===========================================
+{
+ "weather": {
+  "rows": 34480,
+  "duplicates": 0,
+  "gaps": 0,
+  "nans": 0
+ },
+ "labels": {
+  "rows": 34480,
+  "duplicates": 0,
+  "gaps": 0,
+  "nans": 32284
+ },
+ "impossible_values": {
+  "neg_precip": 0,
+  "neg_snow": 0,
+  "tmin_gt_tmax": 0,
+  "precip_gt_300": 0,
+  "snow_gt_precip": 0
+ }
+}
+
+======== 2. Rolling backtest (train on the past only) ================
+ year  test_rows  blocked   auc  pr_auc  brier  recall@.2  prec@.2
+ 2019       2799       18 0.839   0.284 0.0053       0.39     0.44
+ 2020       2806       29 0.907   0.132 0.0097       0.07     0.13
+ 2021       2799       60 0.946   0.347 0.0162       0.55     0.42
+ 2022       2799      153 0.919   0.461 0.0397       0.62     0.36
+ 2023       2799       76 0.924   0.430 0.0197       0.53     0.48
+ 2024       2806       39 0.964   0.309 0.0111       0.49     0.36
+ 2025       2799       86 0.943   0.458 0.0213       0.50     0.47
+ 2026       2239       66 0.939   0.294 0.0251       0.52     0.27
+AUC mean 0.923 ± 0.038; PR-AUC mean 0.339 ± 0.111
+
+======== 3. Calibration method =======================================
+                     auc  pr_auc    brier     ece  unique_values
+raw_hgb           0.9439  0.3467  0.01881  0.0040         2488.0
+isotonic          0.9405  0.3100  0.01891  0.0059           64.0
+sigmoid (in use)  0.9439  0.3467  0.01868  0.0051         3041.0
+calibration year positives: 76 of 2799
+
+======== 4. Perfect weather vs realistic forecast (test 2024+) =======
+                            auc  pr_auc  recall@.2  prec@.2
+perfect_next_day_weather  0.949   0.364       0.49     0.39
+realistic_forecast        0.944   0.347       0.47     0.37
+
+======== 5. Monotonicity sweeps (share of rows where MORE x LOWERS risk by >2 pts) 
+                f_precip           f_snow            rain7     news_block_t
+HZR-BSM  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+BSM-DSU  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+DSU-CHL  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+CHL-JGL  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+JGL-GLT  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+GLT-HNZ  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+HNZ-SST  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+SST-KJB  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)  0.0% (max -0.0)
+
+======== 6. Where it goes wrong (test 2024+, realistic forecast, threshold 20%) 
+by segment
+ segment_id  BSM-DSU  CHL-JGL  DSU-CHL  GLT-HNZ  HNZ-SST  HZR-BSM  JGL-GLT  SST-KJB
+blocked       33.00    43.00     48.0     9.00    27.00     6.00     10.0    15.00
+caught         0.61     0.42      0.6     0.44     0.52     0.17      0.0     0.27
+by month
+ month       1     2      3      4      5     6      7      8     9    10    11   12
+blocked  11.00  8.00  33.00  23.00  19.00  9.00  42.00  30.00  7.00  4.0  3.00  2.0
+caught    0.18  0.25   0.42   0.57   0.53  0.44   0.55   0.43  0.29  1.0  0.67  0.5
+false alarms by month
+ month
+1     12
+2     10
+3     37
+4     10
+5      8
+6      2
+7     35
+8     25
+9      3
+10     7
+11     3
+12     2
+by cause
+                blocked  caught
+cause                         
+a landslide         49    0.35
+a rockslide         26    0.54
+accident             3    0.00
+flash floods        29    0.55
+glacial flood       20    0.45
+heavy rain          27    0.63
+mudslides           28    0.43
+snowfall             9    0.56
+new blockage (no report yet) vs ongoing
+          n  caught
+onset             
+False   64    0.72
+True   127    0.35
+
+======== 7. Train/serve skew: replay features vs training features ===
+features that differ (max abs diff): none
+
+======== 8. Edge cases ===============================================
+{'min_prob': 0.0003, 'share_at_floor': 0.0, 'distinct_probabilities': 3056}

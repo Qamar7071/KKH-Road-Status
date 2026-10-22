@@ -1,0 +1,8 @@
+data=synthetic  trees=198  test=2024-01-01 → 2026-10-18
+                      ROC-AUC   PR-AUC    Brier  Rec@.2 Prec@.2
+model                  0.9439   0.3467  0.01868   0.471   0.369
+logistic_baseline      0.9285   0.3317  0.01933   0.398   0.378
+season_baseline        0.7167   0.0603  0.02337     0.0     0.0
+per segment: {'HZR-BSM': 0.923, 'BSM-DSU': 0.944, 'DSU-CHL': 0.923, 'CHL-JGL': 0.919, 'JGL-GLT': 0.961, 'GLT-HNZ': 0.983, 'HNZ-SST': 0.945, 'SST-KJB': 0.921}
+reliability: [(np.float64(0.008), np.float64(0.005), 7014), (np.float64(0.069), np.float64(0.066), 347), (np.float64(0.14), np.float64(0.172), 239), (np.float64(0.268), np.float64(0.31), 142), (np.float64(0.414), np.float64(0.417), 60), (np.float64(0.577), np.float64(0.514), 35), (np.float64(0.762), np.float64(0.429), 7)]
+drivers: {'Rain in the last days': 1.611, "Tomorrow's rain/snow forecast": 1.478, 'News & traveller reports': 1.061, 'Heat / glacier melt': 0.55, 'Snow & freeze-thaw': 0.381, 'Season': 0.275, 'Landslide history': 0.022}
